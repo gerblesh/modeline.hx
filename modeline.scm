@@ -1,6 +1,6 @@
 ;; unfortunately, setting the tab-width and using the \t character is not currently supported (requires a patch to allow a cmd to set the tab character width)
 ;; This *already* requires a patch that adds rope->match-regexp
-;; -*- mode: scm; tab-width: 2; indent-tabs-mode: nil -*-
+;; -*- mode: steel; tab-width: 2; indent-tabs-mode: nil -*-
 
 (require-builtin helix/core/text)
 (require (prefix-in helix. "helix/commands.scm"))
