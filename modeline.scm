@@ -70,11 +70,19 @@
         "hs"
         "haskell"
         ;; F#
+        "f#"
+        "fsharp"
+        "f-sharp"
+        "fsharp"
         "fs"
         "fsharp"
         ;; C#
         "cs"
+        "c-sharp"
+        "c#"
+        "c-sharp"
         "csharp"
+        "c-sharp"
         ;; PowerShell
         "ps1"
         "powershell"
@@ -165,7 +173,7 @@
   (modeline (get-current-doc-id)))
 
 (define (normalize-lang s)
-  (or (hash-try-get lang-aliases s) s))
+  (let ([lower (string->lower s)]) (or (hash-try-get lang-aliases lower) lower)))
 
 ;; common keys used in emacs and vim modelines:
 (define tabs-mode (hash "t" "t"))
