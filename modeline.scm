@@ -55,7 +55,10 @@
 
 (define (check-modeline line)
   (define (match-and-split regex)
-    (let ([m (try-list-ref (rope->match-regexp line regex) 0)]) (split-whitespace m)))
+    (let ([m (try-list-ref (rope->match-regexp line regex) 0)])
+      (if m
+          (split-whitespace m)
+          #f)))
   (or (match-and-split vim-modeline-regex) (match-and-split emacs-modeline-regex)))
 
 (define (search-modelines t)
