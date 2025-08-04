@@ -46,13 +46,6 @@
 (define (split-whitespace s)
   (rope->match-regexp (string->rope s) "[^\\s;:.,()\\[\\]{}=]+"))
 
-(define (test)
-  (rope->match-regexp
-   (string->rope
-    ";; unfortunately, setting the tab-width and using the \t character is not currently supported (requires a patch to allow a cmd to set the tab character width)
-")
-   emacs-modeline-regex))
-
 (define (check-modeline line)
   (define (match-and-split regex)
     (let ([m (try-list-ref (rope->match-regexp line regex) 0)])
