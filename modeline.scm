@@ -72,7 +72,8 @@
 
 (define (modeline-enable)
   (register-hook! 'document-opened modeline)
-  (register-hook! 'document-saved modeline))
+  (register-hook! 'document-saved modeline)
+  (refresh-modeline))
 
 (define (get-current-doc-id)
   (let* ([focus (editor-focus)]) (editor->doc-id focus)))
