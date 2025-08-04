@@ -1,7 +1,6 @@
 # modeline.hx
 Helix Plugin for modeline
 
-
 # Installation
 Currently, you need to use a custom branch in order to have access to regex matching on ropes from steel, building and installing helix from a custom branch (not the original plugin PR):
 ```sh
@@ -32,6 +31,14 @@ add the lines to your scm file to configure the modeline
 
 supports very basic emacs and vim modelines with some caveats:
 
+example modelines:
+```py
+# vim:ts=4 ft=py
+```
+
+```py
+# -*- mode: py; tab-width: 4; indent-tabs-mode: nil -*-
+```
 
 supported modeline fields:
 
@@ -43,13 +50,4 @@ supported modeline fields:
 
 `language`, `mode`, `ft`, `filetype`: language/syntax highlighting, only some filetype aliases are supported and may vary
 
-indent-tabs-mode: can either be "nil" (spaces) or "t" (tabs)
-
-example modelines:
-```py
-# vim: set ts=4 sw=4 et: ft=py
-```
-
-```py
-# -*- mode: py; tab-width: 4; indent-tabs-mode: nil -*-
-```
+`indent-tabs-mode`: can either be `nil` (spaces) or `t` (tabs)

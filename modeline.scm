@@ -40,30 +40,38 @@
         "rs"
         "rust"))
 
-(define emacs-modeline-regex "-\\*-\\s*(.*?)\\s*-\\*-")
+(define emacs-modeline-regex "-\\*-\\s*(.+?)\\s*-\\*-")
 (define vim-modeline-regex "(?i)(?:vi|vim):.*?((?:set)?\\s+[^:]*).*")
 
 (define (split-whitespace s)
   (rope->match-regexp (string->rope s) "[^\\s;:.,()\\[\\]{}=]+"))
 
+(define (test)
+  (rope->match-regexp
+   (string->rope
+    ";; unfortunately, setting the tab-width and using the \t character is not currently supported (requires a patch to allow a cmd to set the tab character width)
+")
+   emacs-modeline-regex))
+
 (define (check-modeline line)
-  (or (let ([m (try-list-ref (rope->match-regexp line emacs-modeline-regex) 0)])
-        (and m (split-whitespace m)))
-      (let ([m (try-list-ref (rope->match-regexp line vim-modeline-regex) 0)])
-        (and m (split-whitespace m)))))
+  (define (match-and-split regex)
+    (let ([m (try-list-ref (rope->match-regexp line regex) 0)]) (split-whitespace m)))
+  (or (match-and-split vim-modeline-regex) (match-and-split emacs-modeline-regex)))
 
 (define (search-modelines t)
   (let* ([line-count (rope-len-lines t)]
          [max-lines (min 5 line-count)]
          [check-lines (lambda (start count)
                         (let loop ([i start])
-                          (when (< i (+ start count))
-                            (let ([line (rope->line t i)])
-                              (let ([parsed (check-modeline line)])
+                          (if (< i (+ start count))
+                              (let* ([line (rope->line t i)]
+                                     [parsed (check-modeline line)])
                                 (if parsed
-                                    (apply-modeline parsed)
-                                    parsed)))
-                            (loop (+ i 1)))))])
+                                    (begin
+                                      (apply-modeline parsed)
+                                      parsed)
+                                    (loop (+ i 1))))
+                              #f)))])
     (or (check-lines 0 max-lines) (check-lines (- line-count max-lines) max-lines))))
 
 (define (modeline-enable)
