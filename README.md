@@ -35,18 +35,20 @@ example modelines:
 ```py
 # vim:ts=4 ft=py
 ```
-
+```py
+# ex:ts=4:ft=py:et
+```
 ```py
 # -*- mode: py; tab-width: 4; indent-tabs-mode: nil -*-
 ```
 
 supported modeline fields:
 
-`et`, `expand-tab`: use spaces for indent
+`et`, `expandtab`: use spaces for indent
 
-`noet`, `no-expand-tab`: use tabs for indent (tab width not supported)
+`noet`, `noexpandtab`: use tabs for indent (tab width not supported)
 
-`tab-width`, `sw`, `ts`, `shiftwidth`: tab width (only affects spaces)
+`tab-width`, `ts`, `tabstop`, `sw`, `shiftwidth`, `sts`, `softtabstop`: tab width (only affects spaces)
 
 `language`, `mode`, `ft`, `filetype`: language/syntax highlighting, only some filetype aliases are supported and may vary
 

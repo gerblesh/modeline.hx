@@ -1,6 +1,6 @@
 ;; unfortunately, setting the tab-width and using the \t character is not currently supported (requires a patch to allow a cmd to set the tab character width)
 ;; This *already* requires a patch that adds rope->match-regexp
-;; -*- language: scm; tab-width: 2; indent-tabs-mode: nil -*-
+;; -*- mode: scm; tab-width: 2; indent-tabs-mode: nil -*-
 
 (require-builtin helix/core/text)
 (require (prefix-in helix. "helix/commands.scm"))
@@ -41,7 +41,7 @@
         "rust"))
 
 (define emacs-modeline-regex "-\\*-\\s*(.+?)\\s*-\\*-")
-(define vim-modeline-regex "(?i)(?:vi|vim):.*?((?:set)?\\s+[^:]*).*")
+(define vim-modeline-regex "(?i)(vi|vim|ex):.*?((set)?\\s+[^:]*).*")
 
 (define (split-whitespace s)
   (rope->match-regexp (string->rope s) "[^\\s;:.,()\\[\\]{}=]+"))
@@ -90,9 +90,9 @@
 ;; common keys used in emacs and vim modelines:
 (define tabs-mode (hash "nil" #f "t" "t"))
 (define language-keys (hashset "mode" "language" "ft" "filetype"))
-(define width-keys (hashset "tab-width" "sw" "ts" "shiftwidth"))
-(define tab-keys (hashset "noet" "no-expand-tab"))
-(define expand-tab-keys (hashset "et" "expand-tab"))
+(define width-keys (hashset "tab-width" "sw" "shiftwidth" "ts" "tabstop" "sts" "softtabstop"))
+(define tab-keys (hashset "noet" "noexpandtab"))
+(define expand-tab-keys (hashset "et" "expandtab"))
 
 (define (apply-modeline lst)
   (let loop ([i 0]
