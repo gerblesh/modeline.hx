@@ -34,10 +34,15 @@ supports very basic emacs and vim modelines with some caveats:
 
 
 supported modeline fields:
+
 et, expand-tab: use spaces for indent
+
 noet, no-expand-tab: use tabs for indent (tab width not supported)
+
 tab-width, sw, ts, shiftwidth: tab width (only affects spaces)
+
 language, mode, ft, filetype: language/syntax highlighting, only some filetype aliases are supported and may vary
+
 indent-tabs-mode: can either be "nil" (spaces) or "t" (tabs)
 
 example modelines:
