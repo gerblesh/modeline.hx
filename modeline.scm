@@ -6,39 +6,119 @@
 (require (prefix-in helix. "helix/commands.scm"))
 (require "helix/editor.scm")
 
+;; hashmap of file extensions/filetypes that may be used in modelines, could be ditched if: https://github.com/helix-editor/helix/pull/13085 is merged
 (define lang-aliases
+  ;; JavaScript / TypeScript
   (hash "js"
         "javascript"
         "ts"
         "typescript"
+        ;; Shell
         "sh"
         "bash"
+        ;; Ruby
         "rb"
         "ruby"
+        ;; Python
         "py"
         "python"
+        ;; C / C++
         "c++"
         "cpp"
         "cxx"
         "cpp"
-        "h"
-        "c"
         "hpp"
         "cpp"
+        "h"
+        "c"
+        ;; Lisp-family
+        "steel"
+        "scheme"
         "el"
         "elisp"
-        "rkt"
-        "racket"
         "scm"
         "scheme"
+        "rkt"
+        "racket"
+        "fnl"
+        "fennel"
+        "clj"
+        "clojure"
+        "cljs"
+        "clojure"
+        ;; Markdown / Text
         "md"
         "markdown"
         "txt"
         "text"
+        ;; YAML
         "yml"
         "yaml"
+        ;; Rust
         "rs"
-        "rust"))
+        "rust"
+        ;; Julia
+        "jl"
+        "julia"
+        ;; Perl
+        "pl"
+        "perl"
+        ;; Kotlin
+        "kt"
+        "kotlin"
+        ;; Haskell
+        "hs"
+        "haskell"
+        ;; F#
+        "fs"
+        "fsharp"
+        ;; C#
+        "cs"
+        "csharp"
+        ;; PowerShell
+        "ps1"
+        "powershell"
+        ;; LaTeX
+        "tex"
+        "latex"
+        ;; MATLAB / Octave
+        "m"
+        "matlab"
+        ;; Batch
+        "bat"
+        "batch"
+        ;; Elixir
+        "ex"
+        "elixir"
+        "exs"
+        "elixir"
+        ;; Erlang
+        "erl"
+        "erlang"
+        "hrl"
+        "erlang"
+        ;; Systemd files
+        "service"
+        "systemd"
+        "mount"
+        "systemd"
+        "timer"
+        "systemd"
+        "socket"
+        "systemd"
+        ;; Typst
+        "typ"
+        "typst"
+        ;; Ini aliases
+        "cfg"
+        "ini"
+        "conf"
+        "ini"
+        ; Ocaml
+        "ml"
+        "ocaml"
+        "mli"
+        "ocaml-interface"))
 
 (define emacs-modeline-regex "-\\*-\\s*(.+?)\\s*-\\*-")
 (define vim-modeline-regex "(?i)(vi|vim|ex):.*?((set)?\\s+[^:]*).*")
