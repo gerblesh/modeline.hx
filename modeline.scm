@@ -168,7 +168,7 @@
   (or (hash-try-get lang-aliases s) s))
 
 ;; common keys used in emacs and vim modelines:
-(define tabs-mode (hash "nil" #f "t" "t"))
+(define tabs-mode (hash "t" "t"))
 (define language-keys (hashset "mode" "language" "ft" "filetype"))
 (define width-keys (hashset "tab-width" "sw" "shiftwidth" "ts" "tabstop" "sts" "softtabstop"))
 (define tab-keys (hashset "noet" "noexpandtab"))
@@ -192,7 +192,7 @@
           [(and (not indent) (hashset-contains? expand-tab-keys current)) (loop (+ i 1) "2")]
           [(hashset-contains? tab-keys current) (loop (+ i 1) "t")]
           [(and (string=? current "indent-tabs-mode") next)
-           (loop (+ i 2) (let ([m (hash-ref tabs-mode next)]) (if m m indent)))]
+           (loop (+ i 2) (let ([m (hash-try-get tabs-mode next)]) (if m m indent)))]
           [else (loop (+ i 1) indent)])))))
 
 (provide modeline-enable
