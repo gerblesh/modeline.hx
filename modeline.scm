@@ -128,15 +128,16 @@
         "mli"
         "ocaml-interface"))
 
-(define emacs-modeline-regex "-\\*-\\s*(.+?)\\s*-\\*-")
-(define vim-modeline-regex "(?i)(vi|vim|ex):.*?((set)?\\s+[^:]*).*")
+(define emacs-modeline-regex (rope-regex "-\\*-\\s*(.+?)\\s*-\\*-"))
+(define vim-modeline-regex (rope-regex "(?i)(vi|vim|ex):.*?((set)?\\s+[^:]*).*"))
+(define whitespace-regex (rope-regex "[^\\s;:.,()\\[\\]{}=]+"))
 
 (define (split-whitespace s)
-  (rope->match-regexp (string->rope s) "[^\\s;:.,()\\[\\]{}=]+"))
+  (rope-regex->find* whitespace-regex (string->rope s)))
 
 (define (check-modeline line)
   (define (match-and-split regex)
-    (let ([m (try-list-ref (rope->match-regexp line regex) 0)])
+    (let ([m (rope-regex->find regex line)])
       (if m
           (split-whitespace m)
           #f)))

@@ -4,7 +4,7 @@ Helix Plugin for modeline
 # Installation
 Currently, you need to use a custom branch in order to have access to regex matching on ropes from steel, building and installing helix from a custom branch (not the original plugin PR):
 ```sh
-git clone https://github.com/gerblesh/helix.git -b line-number-config
+git clone https://github.com/gerblesh/helix.git -b regex-match
 ```
 
 then build/install the helix fork with:
@@ -22,6 +22,7 @@ add the lines to your scm file to configure the modeline
 ```scheme
 (require "modeline/modeline.scm")
 
+;; Make sure to put these AFTER your lsp configs in steel so that the document is reloaded with the LSP
 ;; register the modeline to automatically run on save/open
 (modeline-enable)
 
