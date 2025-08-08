@@ -132,8 +132,8 @@
 (define vim-modeline-regex (rope-regex "(?i)(vi|vim|ex):.*?((set)?\\s+[^:]*).*"))
 (define whitespace-regex (rope-regex "[^\\s;:.,()\\[\\]{}=]+"))
 
-(define (split-whitespace s)
-  (rope-regex->find* whitespace-regex (string->rope s)))
+(define (split-whitespace r)
+  (rope-regex->find* whitespace-regex r))
 
 (define (check-modeline line)
   (define (match-and-split regex)
@@ -183,14 +183,19 @@
 (define tab-keys (hashset "noet" "noexpandtab"))
 (define expand-tab-keys (hashset "et" "expandtab"))
 
+(define (try-convert-rope r)
+  (if (Rope? r)
+      (rope->string r)
+      #f))
+
 (define (apply-modeline lst)
   (let loop ([i 0]
              [indent #f])
     (when (< i (length lst))
       (when indent
         (helix.indent-style indent))
-      (let* ([current (try-list-ref lst i)]
-             [next (try-list-ref lst (+ i 1))])
+      (let* ([current (try-convert-rope (try-list-ref lst i))]
+             [next (try-convert-rope (try-list-ref lst (+ i 1)))])
         (cond
           [(and next (hashset-contains? language-keys current))
            (begin
