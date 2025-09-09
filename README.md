@@ -2,9 +2,8 @@
 Helix Plugin for modeline
 
 # Installation
-Currently, you need to use a custom branch in order to have access to regex matching on ropes from steel, building and installing helix from a custom branch (not the original plugin PR):
 ```sh
-git clone https://github.com/gerblesh/helix.git -b regex-match
+git clone https://github.com/mattwparas/helix.git -b steel-event-system
 ```
 
 then build/install the helix fork with:

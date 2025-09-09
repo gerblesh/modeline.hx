@@ -130,14 +130,14 @@
 
 (define emacs-modeline-regex (rope-regex "-\\*-\\s*(.+?)\\s*-\\*-"))
 (define vim-modeline-regex (rope-regex "(?i)(vi|vim|ex):.*?((set)?\\s+[^:]*).*"))
-(define whitespace-regex (rope-regex "[^\\s;:.,()\\[\\]{}=]+"))
+(define whitespace-regex (rope-regex "[\\s;:.,()\\[\\]{}=]+"))
 
 (define (split-whitespace r)
-  (rope-regex->find* whitespace-regex r))
+  (rope-regex-split whitespace-regex r))
 
 (define (check-modeline line)
   (define (match-and-split regex)
-    (let ([m (rope-regex->find regex line)])
+    (let ([m (rope-regex-find regex line)])
       (if m
           (split-whitespace m)
           #f)))
