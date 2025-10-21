@@ -1,5 +1,6 @@
 ;; unfortunately, setting the tab-width and using the \t character is not currently supported (requires a patch to allow a cmd to set the tab character width)
 ;; -*- mode: steel; tab-width: 2; indent-tabs-mode: nil -*-
+;
 
 (require-builtin helix/core/text)
 (require (prefix-in helix. "helix/commands.scm"))
@@ -191,8 +192,6 @@
   (let loop ([i 0]
              [indent #f])
     (when (< i (length lst))
-      (when indent
-        (helix.indent-style indent))
       (let* ([current (try-convert-rope (try-list-ref lst i))]
              [next (try-convert-rope (try-list-ref lst (+ i 1)))])
         (cond
@@ -201,9 +200,14 @@
              (helix.set-language (normalize-lang next))
              (loop (+ i 2) indent))]
           [(and next (hashset-contains? width-keys current) (string->number next) (bool? indent))
-           (loop (+ i 2) next)]
+           (begin
+             (helix.indent-style next)
+             (loop (+ i 2) next))]
           [(and (not indent) (hashset-contains? expand-tab-keys current)) (loop (+ i 1) "2")]
-          [(hashset-contains? tab-keys current) (loop (+ i 1) "t")]
+          [(hashset-contains? tab-keys current)
+           (begin
+             (helix.indent-style "t")
+             (loop (+ i 1) "t"))]
           [(and (string=? current "indent-tabs-mode") next)
            (loop (+ i 2) (let ([m (hash-try-get tabs-mode next)]) (if m m indent)))]
           [else (loop (+ i 1) indent)])))))
