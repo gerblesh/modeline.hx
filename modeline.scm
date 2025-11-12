@@ -1,6 +1,5 @@
 ;; unfortunately, setting the tab-width and using the \t character is not currently supported (requires a patch to allow a cmd to set the tab character width)
 ;; -*- mode: steel; tab-width: 2; indent-tabs-mode: nil -*-
-;
 
 (require-builtin helix/core/text)
 (require (prefix-in helix. "helix/commands.scm"))
@@ -160,9 +159,8 @@
     (or (check-lines 0 max-lines) (check-lines (- line-count max-lines) max-lines))))
 
 (define (modeline-enable)
-  (register-hook! 'document-opened modeline)
-  (register-hook! 'document-saved modeline)
-  (refresh-modeline))
+  (register-hook! "document-opened" modeline)
+  (register-hook! "document-saved" modeline))
 
 (define (get-current-doc-id)
   (let* ([focus (editor-focus)]) (editor->doc-id focus)))

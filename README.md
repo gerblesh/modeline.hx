@@ -26,7 +26,7 @@ add the lines to your scm file to configure the modeline
 (modeline-enable)
 
 ;; this steel function refreshes the modeline, you can bind a key to call it manually in your helix/init.scm or config.toml
-(refresh-modeline)
+(provide refresh-modeline)
 ```
 
 supports very basic emacs and vim modelines with some caveats:
