@@ -1,3 +1,6 @@
+# ARCHIVED
+# MOVED TO: https://codeberg.org/gwid/modeline.hx 
+
 # modeline.hx
 Helix Plugin for modeline
 
@@ -13,7 +16,7 @@ cargo xtask steel
 
 to install the plugin with forge:
 ```sh
-forge pkg install --git https://github.com/gerblesh/modeline.hx.git
+forge pkg install --git https://codeberg.org/gwid/modeline.hx.git
 ```
 
 add the lines to your scm file to configure the modeline
