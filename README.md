@@ -1,3 +1,4 @@
 # ARCHIVED
 moved to: https://codeberg.org/gwid/modeline.hx
-original README: 
+
+original README: https://github.com/gerblesh/modeline.hx/blob/main/README_ARCHIVE.md
